@@ -29,18 +29,18 @@ module.exports = (req, res, next) => {
               'url': fields.face_id
             })
           },
-              function (error, response, body) {
+              function (err, response, body) {
                 console.log('response', response.statusCode);
                 console.log('body', body);
                 body = JSON.parse(body);
-                if (body.error) {
-                  console.log(body.error);
+                if (err) {
+                  console.log(err);
                 } else {
                   var model = mongoose.model('Person');
                   model.update({ '_id': person._id }, {$set: { face_id: body.persistedFaceId }}, function (err, user) {
                     if (err) {
                       console.log(err);
-                      res.write('Please try again.');
+                      res.send('Please try again.');
                     }
 
                     res.send('Success');

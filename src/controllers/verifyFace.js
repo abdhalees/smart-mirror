@@ -6,45 +6,44 @@ const oxfordList = 'test_face_list';
 const minConfidence = 0.5;
 
 module.exports = (req, res, next) => {
+  console.log(req.body.length);
   request.post({
     'url': 'https://eastasia.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=false',
     'headers': {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/octet-stream',
       'Ocp-Apim-Subscription-Key': oxfordKey
     },
-    'body': JSON.stringify(req.body)
+    'body': req.body
   },
-    function (error, response, body) {
-      if (error) {
-        console.log(error);
-      } else {
-        body = JSON.parse(body);
-        if (body.length > 0) {
-        // There should only be one face, but in the event there are more,
-        // the largest one is returned first.
-          var faceId = body[0].faceId;
-        // Specifying the face id and the faceList Id for Project Oxford's REST API's.
-          var req = {
-            'faceId': faceId,
-            'faceListId': oxfordList,
-            'maxNumOfCandidatesReturned': 1
-          };
+  function(error, response, body) {
+    body = JSON.parse(body);
+    if (body.length > 0) {
+      // There should only be one face, but in the event there are more,
+      // the largest one is returned first.
+      var faceId = body[0].faceId;
+      // Specifying the face id and the faceList Id for Project Oxford's REST API's.
+      var req = {
+        'faceId': faceId,
+        'faceListId': oxfordList,
+        'maxNumOfCandidatesReturned': 1
+      };
 
-        // Interacts with Project Oxford to find a similar face in the face bank.
-          findSimilarFaces(req, res);
-        } else {
-          var message = 'Unable to find a face in the picture.';
-          if (body.error) {
-            console.log(body.error);
-            message = 'Error from project oxford';
-          }
-          res.write(JSON.stringify({
-            'message': message,
-            'authenticated': false
-          }));
-        }
+      // Interacts with Project Oxford to find a similar face in the face bank.
+      findSimilarFaces(req, res);
+    }
+    else {
+      var message = 'Unable to find a face in the picture.';
+      if (body.error) {
+        console.log(body.error);
+        message = 'Error from project oxford';
       }
-    });
+      res.write(JSON.stringify({
+        'message': message,
+        'authenticated': false
+      }));
+      res.end();
+    }
+  });
 };
 
 function findSimilarFaces (req, res) {

@@ -8,11 +8,9 @@ const connectionString = nconf.get('CUSTOMCONNSTR_MONGOLAB_URI');
 const controllers = require('./controllers/index.js');
 const personSchema = require('./model/person');
 const app = express();
+const print = require('./middlewares/printBody.js');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// app.use(bodyParser.raw({limit: '100mb'}));
+app.use(bodyParser.raw({limit: '100mb'}));
 
 // Connect to the database.
 mongoose.connect(connectionString);

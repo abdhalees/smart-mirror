@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+{{>head}}
+
+<body>
+
+  {{>header}}
+
+  <body class="{{bodyClass}}">
+      {{{body}}}
+      {{#if templates}}
+          <script src="/libs/handlebars.runtime.js"></script>
+          <script>
+              (function () {
+                  var template  = Handlebars.template,
+                      templates = Handlebars.templates = Handlebars.templates || {};
+
+              {{#templates}}
+                  templates['{{{name}}}'] = template({{{template}}});
+              {{/templates}}
+              }());
+          </script>
+      {{/if}}
+    </body>
+</body>
+{{>footer}}
+
+</html>
