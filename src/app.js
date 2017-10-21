@@ -3,11 +3,14 @@ const exphs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
-const nconf = require('nconf').file({ 'file': 'environment.json' }).env();
+const nconf = require('nconf').file({ 'file': 'config.json' }).env();
 const connectionString = nconf.get('CUSTOMCONNSTR_MONGOLAB_URI');
 const controllers = require('./controllers/index.js');
 const personSchema = require('./model/person');
 const app = express();
+const print = require('./middlewares/printBody.js');
+
+app.use(bodyParser.raw({limit: '100mb'}));
 
 // Connect to the database.
 mongoose.connect(connectionString);
@@ -22,7 +25,7 @@ process.on('SIGINT', function () {
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'mongoose connection error:'));
-db.once('open', function () {
+db.once('openuri', function () {
   console.log("we're connected!");
 });
 
