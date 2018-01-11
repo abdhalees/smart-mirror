@@ -125,7 +125,6 @@ Authenticate.takePhoto = function (addFace) {
         $.ajax({
           'url': '/verify',
           'beforeSend': function (xhrObj) {
-            console.log(byteArray.length);
             xhrObj.setRequestHeader('Content-Type', 'application/octet-stream');
           },
           'type': 'POST',
@@ -141,6 +140,7 @@ Authenticate.takePhoto = function (addFace) {
           Authenticate.user = {
             'name': resultObj.name
           };
+          voiceToText();
           document.dispatchEvent(new CustomEvent('mirrorstatechange', {
             'detail': MIRROR_STATES.LOGGED_IN
           }));

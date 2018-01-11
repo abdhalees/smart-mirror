@@ -31,6 +31,7 @@ db.once('openuri', function () {
 
 var Person = mongoose.model('Person', personSchema);
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.set('views', path.join(__dirname, 'views'));
