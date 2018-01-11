@@ -13,12 +13,14 @@
   <!-- TIME OUT LOGS USER OUT -->
   {{> loggingOut }}
 
+  
+
 </section>
 
 <div class="clear eyelevel">
 
   <!-- WEATHER-->
-  {{> weather}}
+  
 
   <!-- TIMELY CONTENT: TIMESTAMP AND ALERTS -->
   <div class="timely-content">
@@ -31,8 +33,11 @@
 
   </div>
 
+
 </div>
 <img id="shot-preview"/>
+
+{{> message }}
 
 <!-- LOW PRIORITY CONTENT -->
 <section class="low-pri-content auth-content">
@@ -57,5 +62,10 @@
 <script src="/js/stock.js"></script>
 <script src="/js/news.js"></script>
 <script src="/js/traffic.js"></script>
-<script src="/js/mirror.js"></script>
 <script src="/js/authenticate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.min.js"></script>
+<script src="js/distrib/speech.browser.sdk.js"></script>
+<script src="js/sdkUsage.js"></script>
+<script src="/js/mirror.js"></script>
+<script src="/js/voice.js"></script>
+

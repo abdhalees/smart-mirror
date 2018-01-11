@@ -8,7 +8,7 @@ const minConfidence = 0.5;
 module.exports = (req, res, next) => {
   console.log(req.body.length);
   request.post({
-    'url': 'https://eastasia.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=false',
+    'url': 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=false',
     'headers': {
       'Content-Type': 'application/octet-stream',
       'Ocp-Apim-Subscription-Key': oxfordKey
@@ -27,7 +27,7 @@ module.exports = (req, res, next) => {
         'faceListId': oxfordList,
         'maxNumOfCandidatesReturned': 1
       };
-
+      console.log(faceId);
       // Interacts with Project Oxford to find a similar face in the face bank.
       findSimilarFaces(req, res);
     }
@@ -48,7 +48,7 @@ module.exports = (req, res, next) => {
 
 function findSimilarFaces (req, res) {
   request.post({
-    'url': 'https://eastasia.api.cognitive.microsoft.com/face/v1.0/findsimilars',
+    'url': 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/findsimilars',
     'headers': {
       'Content-Type': 'application/json',
       'Ocp-Apim-Subscription-Key': oxfordKey
@@ -64,6 +64,7 @@ function findSimilarFaces (req, res) {
       }));
     } else {
       body = JSON.parse(body);
+      console.log(body);
       if (body.length > 0) {
         var faceId = body[0].persistedFaceId;
         var confidence = body[0].confidence;

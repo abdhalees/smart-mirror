@@ -11,7 +11,7 @@
             return;
           }
         });
-
+        console.log('device info:', deviceInfo);
         return !deviceInfo && devices.length > 0 ? devices.getAt(0) : deviceInfo;
       }
     );
@@ -22,6 +22,7 @@
     context.clearRect(0, 0, facesCanvas.width, facesCanvas.height);
     var detectedFaces = args.resultFrame.detectedFaces;
     var numFaces = detectedFaces.length;
+    console.log('number: ', numFaces );
     if (numFaces > 0) {
       var face;
       for (var i = 0; i < numFaces; i++) {
@@ -60,7 +61,7 @@
         dataReader.readBytes(byteArray);
         
         var base64 = Uint8ToBase64(byteArray);
-
+        console.log('byte array:' ,byteArray);
         $.ajax({
           'url': '/face/addFace',
           'beforeSend': function(xhrObj) {
@@ -110,6 +111,7 @@
           console.error('No camera device found!');
           return;
         }
+        console.log('camera: ', camera);        
         mediaCapture = new Capture.MediaCapture();
         captureSettings.videoDeviceId = camera.id;
         captureSettings.streamingCaptureMode = Capture.StreamingCaptureMode.video;

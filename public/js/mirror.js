@@ -2,7 +2,8 @@
   'use strict';
 
   var time, date, day, fcast, temp, weatherDesc, loc, weathericon;
-
+  //var messageSpan = document.getElementById('message'); 
+  
   var MIRROR_STATES = {
     BLANK: 'blank', // Basic state. No face detected in screen. No one logged in.
     FACE_CLOSE: 'face-close', // Detected a face in screen. Not close enough to authenticate. No one logged in.
@@ -57,7 +58,8 @@
     $('.auth-state').attr('aria-hidden', 'true');
     switch (state) {
       case MIRROR_STATES.FACE_CLOSE:
-        $('#face-close').attr('aria-hidden', 'false');
+       console.log($('#message').arrt('aria-hidden'));
+      $('#face-close').attr('aria-hidden', 'false');
         break;
 
       case MIRROR_STATES.LOGGED_IN:
@@ -79,6 +81,10 @@
         $('.auth-content').attr('aria-hidden', 'true');
     }
   }
+
+ 
+  
+
 
   function init() {
     // Need to dynamically rotate the page via CSS due to graphics bug
@@ -102,6 +108,7 @@
     weathericon = $('#weather-icon');
     updateTime();
     updateWeather();
+    rotatePage();
     Stock.init();
 
     Traffic.init();
@@ -109,3 +116,4 @@
   }
   document.addEventListener('DOMContentLoaded', init);
 }());
+
