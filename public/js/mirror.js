@@ -58,7 +58,6 @@
     $('.auth-state').attr('aria-hidden', 'true');
     switch (state) {
       case MIRROR_STATES.FACE_CLOSE:
-       console.log($('#message').arrt('aria-hidden'));
       $('#face-close').attr('aria-hidden', 'false');
         break;
 
