@@ -40,7 +40,8 @@
     $('.auth-state').attr('aria-hidden', 'true');
     switch (state) {
       case MIRROR_STATES.FACE_CLOSE:
-      if ($('#message').html !== ''){
+
+      if (document.getElementById('message').innerText  !== ''){
       $('#face-close').attr('aria-hidden', 'false');
       }
         break;
