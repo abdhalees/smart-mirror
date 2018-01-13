@@ -18,9 +18,9 @@ var faceThresholds = {
 var mirroring = true;
 
 // Reserved for high end devices:
-var cycles = 20;
+var cycles = 50;
 var maxDistance = 40;
-var maxChange = 20;
+var maxChange = 5;
 var logoutTime = 10000; // In milliseconds.
 
 // State variables.
