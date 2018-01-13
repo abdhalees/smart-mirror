@@ -40,11 +40,8 @@
     $('.auth-state').attr('aria-hidden', 'true');
     switch (state) {
       case MIRROR_STATES.FACE_CLOSE:
-
-      if (document.getElementById('message').innerText  !== ''){
       $('#face-close').attr('aria-hidden', 'false');
-      }
-        break;
+       break;
 
       case MIRROR_STATES.LOGGED_IN:
         $('#face-authenticated .greeting-name').html(Authenticate.user.name + '!');
