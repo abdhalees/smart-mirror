@@ -17,19 +17,19 @@
         'dataType': 'jsonp',
         'success': function(data) {
             var ticker1;
-            
-           
+
+
             $('#watchList').empty()
             // Set up initial ticker item.
 
             ticker1 = document.createElement('li');
             ticker1.classList.add('ticker');
             ticker1.textContent = `1 ${stock} = ${data.rates[stockTo]} ${stockTo}`;
-           
+
             watchList.appendChild(ticker1);
             watchList.appendChild(ticker2);
-            
-          
+
+
         }
       })
       .done(function() {

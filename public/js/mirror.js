@@ -2,8 +2,8 @@
   'use strict';
 
   var time, date, day, fcast, temp, weatherDesc, loc, weathericon;
-  //var messageSpan = document.getElementById('message'); 
-  
+  //var messageSpan = document.getElementById('message');
+
   var MIRROR_STATES = {
     BLANK: 'blank', // Basic state. No face detected in screen. No one logged in.
     FACE_CLOSE: 'face-close', // Detected a face in screen. Not close enough to authenticate. No one logged in.
@@ -58,6 +58,7 @@
 
       case MIRROR_STATES.LOGGING_OUT:
         $('#logging-out').attr('aria-hidden', 'false');
+        document.getElementById('message').innerText = '';
         break;
 
       default:
@@ -65,8 +66,8 @@
     }
   }
 
- 
-  
+
+
 
 
   function init() {
@@ -93,4 +94,3 @@
   }
   document.addEventListener('DOMContentLoaded', init);
 }());
-
