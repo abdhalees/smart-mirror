@@ -2,8 +2,8 @@
   'use strict';
 
   var time, date, day, fcast, temp, weatherDesc, loc, weathericon;
-  //var messageSpan = document.getElementById('message'); 
-  
+  //var messageSpan = document.getElementById('message');
+
   var MIRROR_STATES = {
     BLANK: 'blank', // Basic state. No face detected in screen. No one logged in.
     FACE_CLOSE: 'face-close', // Detected a face in screen. Not close enough to authenticate. No one logged in.
@@ -35,30 +35,15 @@
     setTimeout(updateTime, 1e3 * 60);
   }
 
-  function updateWeather() {
-    Weather.getCurrent('94103', function(current) {
-      var desc = current.conditions();
-      var city = current.city();
-      var icon = Weather.Utils.getIcon(current.icon());
-
-      temp.html(Weather.kelvinToFahrenheit(current.temperature()).toFixed(0) + '\xB0');
-      weatherDesc.html(desc);
-
-      loc.html(city);
-      weathericon.attr('src', icon);
-    });
-
-    Weather.getForecast('98052', function(forecast) {
-      fcast.html('Forecast High in ' + Weather.kelvinToFahrenheit(forecast.high()).toFixed(0) + '\xB0');
-    });
-  }
-
-  function handleStateChange(state) {
+    function handleStateChange(state) {
     //Making sure the UI starts clean.
     $('.auth-state').attr('aria-hidden', 'true');
     switch (state) {
       case MIRROR_STATES.FACE_CLOSE:
+
+      if (document.getElementById('message').innerText  !== ''){
       $('#face-close').attr('aria-hidden', 'false');
+      }
         break;
 
       case MIRROR_STATES.LOGGED_IN:
@@ -74,6 +59,7 @@
 
       case MIRROR_STATES.LOGGING_OUT:
         $('#logging-out').attr('aria-hidden', 'false');
+        document.getElementById('message').innerText = '';
         break;
 
       default:
@@ -81,8 +67,8 @@
     }
   }
 
- 
-  
+
+
 
 
   function init() {
@@ -102,17 +88,10 @@
     time = $('#time');
     fcast = $('.report');
     temp = $('.temperature');
-    weatherDesc = $('.conditions span');
-    loc = $('.weather-location');
-    weathericon = $('#weather-icon');
     updateTime();
-    updateWeather();
-    rotatePage();
     Stock.init();
 
-    Traffic.init();
     Authenticate.init();
   }
   document.addEventListener('DOMContentLoaded', init);
 }());
-

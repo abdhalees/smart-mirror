@@ -5,5 +5,6 @@ module.exports = mongoose.Schema({
   'email': String,
   'face_id': String,
   'stock': String,
-  'homeAddress': String
+  'homeAddress': String,
+  'stockTo': String
 });

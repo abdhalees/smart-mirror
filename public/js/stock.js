@@ -3,11 +3,11 @@
 
   var Stock = (function() {
     var refreshRate = 5000; // Refresh rate (in ms).
-    var url = 'http://finance.google.com/finance/info?client=ig&q=';
+    var url = 'https://api.fixer.io/latest?base=';
     var initialized = false;
     var watchList, refresh;
 
-    function getQuotes(stock) {
+    function getQuotes(stock,stockTo) {
       if (!stock) {
         return;
       }
@@ -16,51 +16,20 @@
         'url': url + stock,
         'dataType': 'jsonp',
         'success': function(data) {
-          data.forEach(function(stock) {
-            var symbol = stock.t;
-            var lastPrice = stock.l;
-            var changePercentage = stock.cp;
-            var ticker;
-            var symbolLabel;
-            var tickerPrice;
-            var tickerChange;
+            var ticker1;
+
 
             $('#watchList').empty()
             // Set up initial ticker item.
 
-            ticker = document.createElement('li');
-            ticker.classList.add('ticker');
-            ticker.id = symbol;
+            ticker1 = document.createElement('li');
+            ticker1.classList.add('ticker');
+            ticker1.textContent = `1 ${stock} = ${data.rates[stockTo]} ${stockTo}`;
 
-            symbolLabel = document.createElement('span');
-            symbolLabel.classList.add('symbol');
-            symbolLabel.innerText = symbol + ': ';
+            watchList.appendChild(ticker1);
+            watchList.appendChild(ticker2);
 
-            tickerPrice = document.createElement('span');
-            tickerPrice.classList.add('price');
 
-            tickerChange = document.createElement('span');
-            tickerChange.classList.add('price-change');
-
-            tickerPrice.innerText = lastPrice;
-            tickerChange.innerText = ' (' + changePercentage + '%)';
-
-            // Show positive or negative change icon.
-            if (changePercentage > 0 && !tickerChange.classList.contains('pos-change')) {
-              ticker.classList.add('pos-change');
-              ticker.classList.remove('neg-change');
-            }
-            else if (changePercentage < 0 && !tickerChange.classList.contains('neg-change')) {
-              ticker.classList.add('neg-change');
-              ticker.classList.remove('pos-change');
-            }
-
-            watchList.appendChild(ticker);
-            ticker.appendChild(symbolLabel);
-            ticker.appendChild(tickerPrice);
-            ticker.appendChild(tickerChange);
-
-          });
         }
       })
       .done(function() {
@@ -69,9 +38,9 @@
       });
     }
     return {
-      'init': function(stock) {
+      'init': function(stock,stockTo) {
         watchList = document.getElementById('watchList');
-        getQuotes(stock);
+        getQuotes(stock,stockTo);
       }
     };
   }());
