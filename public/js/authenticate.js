@@ -21,7 +21,7 @@ var mirroring = true;
 var cycles = 30;
 var maxDistance = 40;
 var maxChange = 5;
-var logoutTime = 5000; // In milliseconds.
+var logoutTime = 10000; // In milliseconds.
 
 // State variables.
 var authenticating = false;
@@ -146,7 +146,8 @@ Authenticate.takePhoto = function (addFace) {
           }));
           authenticated = true;
           authenticating = false;
-          Stock.init(resultObj.stock);
+          console.log(resultObj);
+          Stock.init(resultObj.stock, resultObj.stockTo);
           Traffic.init(resultObj.homeAddress, resultObj.workAddress);
         } else {
           // If authenticated is false, then there was no match so start fresh.

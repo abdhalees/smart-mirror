@@ -80,13 +80,14 @@ function findSimilarFaces (req, res) {
           if (user) {
             var message, percConf = confidence.toFixed(4) * 100;
             if (confidence >= minConfidence) {
-              res.send(JSON.stringify({
+                            res.send(JSON.stringify({
                 'message': `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`,
                 'authenticated': true,
                 'name': user.name,
                 'confidence': confidence,
                 'stock': user.stock,
-                'homeAddress': user.homeAddress
+                'homeAddress': user.homeAddress,
+                'stockTo': user.stockTo
               }));
             } else {
               res.send(JSON.stringify({

@@ -14,14 +14,17 @@ function voiceToText(){
     if (recognizer != null) {
       RecognizerStop(SDK, recognizer);
     }
+    
     recognizer = RecognizerSetup(SDK, 'Interactive', 'en-US', SDK.SpeechResultFormat['Sample'], '5c132892bdcb4883b169cdf69668db49');
+    console.log(recognizer)
   } 
 }
 
 
 
 function UpdateRecognizedHypothesis (text, append) {
-    if (append) { spokenText += text + ' '; } else {
+  console.log(text);
+      if (append) { spokenText += text + ' '; } else {
       spokenText = text;
     }
   }
@@ -32,7 +35,7 @@ function UpdateRecognizedHypothesis (text, append) {
       if (spokenText === 'hello') sendMessage = true;
     else if (spokenText === 'goodbye') {
       sendMessage = false;
-      $('#message').attr('aria-hidden', 'false');
+      messageSpan.innerText = '';
     }
     console.log(sendMessage);
     if (sendMessage && spokenText.trim() !== '') {
@@ -40,7 +43,6 @@ function UpdateRecognizedHypothesis (text, append) {
       headers: { 'Content-Type': 'application/json' }})
       .then(res=>res.json())
       .then(({message})=>{
-        $('#message').attr('aria-hidden', 'false');     
         if (message !== 'no speech'){
         $('#face-authenticated').attr('aria-hidden', 'true');     
         $('#face-close').attr('aria-hidden', 'true');        
