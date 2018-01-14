@@ -1,7 +1,7 @@
 'use strict';
 
 // 33ms is fastest, 200ms is default.
-var detectionInterval = 200;
+var detectionInterval = 33;
 
 // Minimum confidence level for successful face authentication, range from 0 to 1.
 var minConfidence = 0.5;
@@ -18,9 +18,9 @@ var faceThresholds = {
 var mirroring = true;
 
 // Reserved for high end devices:
-var cycles = 20;
+var cycles = 1;
 var maxDistance = 40;
-var maxChange = 20;
+var maxChange = 5;
 var logoutTime = 10000; // In milliseconds.
 
 // State variables.
